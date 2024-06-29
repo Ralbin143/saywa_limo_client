@@ -1,0 +1,45 @@
+.review-booking-card {
+  background-color: black;
+  color: white;
+  margin: 20px 0;
+}
+
+.psngr-dtls-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  /* justify-content: space-between; */
+}
+
+.mobImgx {
+  width: auto;
+  height: 200px;
+  object-fit: cover;
+}
+
+.review-vehicle-container {
+  display: flex;
+}
+
+.pkp-containerz {
+  background-color: #1e1e1e;
+  padding: 10px;
+  border-radius: 5px;
+  color: #f0f2f7;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 900px) {
+  .mobImgx {
+    width: 100%;
+  }
+
+  .review-booking-card {
+    margin: 0;
+  }
+
+  .psngr-dtls-container {
+    flex-direction: column;
+  }
+}

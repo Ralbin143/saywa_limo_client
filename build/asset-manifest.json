@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cf9c71b9.css",
+    "main.js": "/static/js/main.b68be372.js",
+    "static/js/787.5aa0d432.chunk.js": "/static/js/787.5aa0d432.chunk.js",
+    "static/media/city.jpg": "/static/media/city.6923716191574a57be43.jpg",
+    "static/media/allblackhome.png": "/static/media/allblackhome.90966fbb58baa80b1390.png",
+    "static/media/success-send-email-message-your-request-will-be-processed-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg": "/static/media/success-send-email-message-your-request-will-be-processed-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.1c9edc31b317f4a55521.jpg",
+    "static/media/login_image.png": "/static/media/login_image.51152acd4a1b8ec834b6.png",
+    "static/media/refer.png": "/static/media/refer.3e61fa072d9de8733819.png",
+    "static/media/success-icon.png": "/static/media/success-icon.6f7ee1138120b186fe31.png",
+    "static/media/Asset1.png": "/static/media/Asset1.a1108322c088ad184407.png",
+    "index.html": "/index.html",
+    "main.cf9c71b9.css.map": "/static/css/main.cf9c71b9.css.map",
+    "main.b68be372.js.map": "/static/js/main.b68be372.js.map",
+    "787.5aa0d432.chunk.js.map": "/static/js/787.5aa0d432.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf9c71b9.css",
+    "static/js/main.b68be372.js"
+  ]
+}
