@@ -111,7 +111,6 @@ select::after {
 }
 .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root {
   color: white;
-  background-color: red;
 }
 :where(.css-dev-only-do-not-override-pr0fja).ant-picker .ant-picker-suffix {
   color: white !important;

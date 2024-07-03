@@ -149,6 +149,7 @@ function BookingForm() {
   const [toastMessage, setToastMessage] = useState("");
   const [fromLocation, setFromLocation] = useState("");
   const [dropLocation, setDropLocation] = useState("");
+  const [returnTrip, setReturnTrip] = useState("No");
   // ----------------------------------[Refs]----------------------------------
   const originRef = useRef();
   const hourlyOriginRef = useRef();
@@ -329,6 +330,7 @@ function BookingForm() {
 
     const data = {
       rideType: oneWayTrip ? "oneway-trip" : "hourly-trip",
+      returnTrip: returnTrip,
       source: originRef.current.value,
       destination: destinationRef.current.value,
       routeNo: 0,
@@ -410,6 +412,41 @@ function BookingForm() {
             />
           </Autocomplete>
           <div className="text-danger">{dropLocationError}</div>
+        </div>
+        <div className="d-flex flex-column w-100 pkp-container mt-2">
+          <small>Return Trip</small>
+          <div className="d-flex mt-2">
+            <div
+              style={{
+                cursor: "pointer",
+                textAlign: "center",
+                background: returnTrip === "Yes" ? "white" : "#1e1e1e",
+                color: returnTrip === "Yes" ? "#1e1e1e" : "white",
+                border: "1px solid white",
+                width: "100%",
+                borderRadius: "5px 0 0 5px",
+                padding: "5px",
+              }}
+              onClick={() => setReturnTrip("Yes")}
+            >
+              Yes
+            </div>
+            <div
+              style={{
+                cursor: "pointer",
+                textAlign: "center",
+                background: returnTrip === "No" ? "white" : "#1e1e1e",
+                color: returnTrip === "No" ? "#1e1e1e" : "white",
+                border: "1px solid white",
+                width: "100%",
+                borderRadius: "0 5px 5px 0",
+                padding: "5px",
+              }}
+              onClick={() => setReturnTrip("No")}
+            >
+              No
+            </div>
+          </div>
         </div>
       </div>
     );

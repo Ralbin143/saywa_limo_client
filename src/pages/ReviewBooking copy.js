@@ -1101,7 +1101,7 @@ function ReviewBooking() {
                   </div>
                   <div className="psngr-dtls-container gap-2">
                     <div className="pkp-containerz w-100">
-                      <small>No of Bags</small>
+                      <small>No of Bags </small>
 
                       <small style={{ fontSize: "10px" }}>
                         Maximum Bags - {parseInt(vehicles[0]?.maxBags)}

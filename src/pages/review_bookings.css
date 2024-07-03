@@ -40,6 +40,6 @@
   }
 
   .psngr-dtls-container {
-    flex-direction: column;
+    grid-template-columns: auto;
   }
 }

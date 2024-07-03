@@ -1104,10 +1104,10 @@ function ReviewBooking() {
                       <small>No of Bags</small>
 
                       <small style={{ fontSize: "10px" }}>
-                        Maximum Bags - {parseInt(vehicles[0]?.maxBags)}
+                        Maximum - {parseInt(vehicles[0]?.maxBags)}
                       </small>
 
-                      <select
+                      {/* <select
                         className="emptyInput"
                         value={noOfBags}
                         onChange={(e) => setNoOfBags(e.target.value)}
@@ -1118,14 +1118,64 @@ function ReviewBooking() {
                             <option value={index + 1}>{index + 1}</option>
                           )
                         )}
-                      </select>
+                      </select> */}
+                      <div className="d-flex mt-3">
+                        <div
+                          style={{
+                            cursor: "pointer",
+                            background: "white",
+                            borderRadius: " 5px 0 0 5px",
+                            width: "35px",
+                            height: "30px",
+                            color: "black",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          onClick={() => {
+                            noOfBags > 0 && setNoOfBags(parseInt(noOfBags) - 1);
+                          }}
+                        >
+                          -
+                        </div>
+                        <div
+                          className="w-100 text-center"
+                          style={{
+                            border: "1px solid white",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {noOfBags}
+                        </div>
+                        <div
+                          style={{
+                            cursor: "pointer",
+                            background: "white",
+                            borderRadius: "0 5px 5px 0",
+                            width: "35px",
+                            height: "30px",
+                            color: "black",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          onClick={() => {
+                            noOfBags < parseInt(vehicles[0]?.maxBags) &&
+                              setNoOfBags(parseInt(noOfBags) + 1);
+                          }}
+                        >
+                          +
+                        </div>
+                      </div>
                     </div>
                     <div className="pkp-containerz w-100">
                       <small>Describe bag types</small>
 
                       <div className="d-flex   gap-2">
                         <div className="d-flex flex-column justify-content-between w-100">
-                          <label>Checked Bags</label>
+                          <small>Checked Bags</small>
 
                           {/* <select
                             className="emptyInput"
@@ -1144,7 +1194,7 @@ function ReviewBooking() {
                               )
                             )}
                           </select> */}
-                          <select
+                          {/* <select
                             className="emptyInput"
                             value={checkedBagCount}
                             onChange={(e) =>
@@ -1160,12 +1210,65 @@ function ReviewBooking() {
                                 <option key={index}>{index}</option>
                               )
                             )}
-                          </select>
+                          </select> */}
+
+                          <div className="d-flex justify-content-between">
+                            <div
+                              style={{
+                                cursor: "pointer",
+                                background: "white",
+                                borderRadius: "5px 0 0  5px ",
+                                width: "35px",
+                                height: "30px",
+                                color: "black",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                              onClick={() => {
+                                parseInt(checkedBagCount) > 0 &&
+                                  setCheckBagAction(
+                                    parseInt(checkedBagCount) - 1
+                                  );
+                              }}
+                            >
+                              -
+                            </div>
+                            <div
+                              style={{
+                                width: "100%",
+                                border: "1px solid white",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {checkedBagCount}
+                            </div>
+                            <div
+                              style={{
+                                cursor: "pointer",
+                                background: "white",
+                                borderRadius: "0 5px 5px 0",
+                                width: "35px",
+                                height: "30px",
+                                color: "black",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                              onClick={() =>
+                                setCheckBagAction(parseInt(checkedBagCount) + 1)
+                              }
+                            >
+                              +
+                            </div>
+                          </div>
                         </div>
                         <div className="d-flex flex-column justify-content-between w-100">
-                          <label>Carry-on</label>
+                          <small>Carry-on</small>
 
-                          <select
+                          {/* <select
                             className="emptyInput"
                             value={carryOnBagsCount}
                             onChange={(e) =>
@@ -1181,33 +1284,87 @@ function ReviewBooking() {
                                 <option key={index}>{index}</option>
                               )
                             )}
-                          </select>
+                          </select> */}
+
+                          <div className="d-flex">
+                            <div
+                              style={{
+                                cursor: "pointer",
+                                background: "white",
+                                borderRadius: "5px 0 0  5px ",
+                                width: "35px",
+                                height: "30px",
+                                color: "black",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                              onClick={() =>
+                                carryOnBagsCount > 0
+                                  ? setCarryOnBagsCount(carryOnBagsCount - 1)
+                                  : null
+                              }
+                            >
+                              -
+                            </div>
+                            <div
+                              style={{
+                                width: "100%",
+                                border: "1px solid white",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {carryOnBagsCount}
+                            </div>
+                            <div
+                              style={{
+                                cursor: "pointer",
+                                background: "white",
+                                borderRadius: "0 5px  5px 0",
+                                width: "35px",
+                                height: "30px",
+                                color: "black",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                              onClick={() =>
+                                setCarryOnBagsCount(carryOnBagsCount + 1)
+                              }
+                            >
+                              +
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                     <div className="pkp-containerz w-100">
                       <small>Do you need car seat?</small>
-                      <div className="d-flex gap-2">
-                        <>
+                      <div className="d-flex gap-2 justify-content-around">
+                        <div>
                           <input
                             type="radio"
-                            id="car-seat-no"
+                            id="car-seat-yes"
                             name="carseat"
+                            className="me-1"
                             checked={CarSeatTottle}
                             onClick={() => setCarSeatTottle(true)}
                           />
                           <label
-                            htmlFor="car-seat-no"
+                            htmlFor="car-seat-yes"
                             onClick={() => setCarSeatTottle(true)}
                           >
                             Yes
                           </label>
-                        </>
-                        <>
+                        </div>
+                        <div>
                           <input
                             type="radio"
                             id="car-seat-no"
                             name="carseat"
+                            className="me-1"
                             checked={CarSeatTottle ? false : true}
                             onClick={() => setCarSeatTottle(false)}
                           />
@@ -1217,20 +1374,11 @@ function ReviewBooking() {
                           >
                             No
                           </label>
-                        </>
+                        </div>
                       </div>
                     </div>
-                    <div className="pkp-containerz w-100">
-                      <small>Flight Information (Optional)</small>
-                      <input
-                        type="text"
-                        className="emptyInput"
-                        onChange={(e) => setFlightInformation(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="psngr-dtls-container gap-2 mt-2">
-                    {CarSeatTottle ? (
+
+                    {CarSeatTottle && (
                       <div className="pkp-containerz d-flex flex-column w-100">
                         <small>How many / What type</small>
                         <input
@@ -1244,8 +1392,18 @@ function ReviewBooking() {
                           }
                         />
                       </div>
-                    ) : null}
+                    )}
+
+                    <div className="pkp-containerz w-100">
+                      <small>Flight Information (Optional)</small>
+                      <input
+                        type="text"
+                        className="emptyInput"
+                        onChange={(e) => setFlightInformation(e.target.value)}
+                      />
+                    </div>
                   </div>
+
                   <div className="pkp-containerz mt-2">
                     <small>Description</small>
                     <textarea

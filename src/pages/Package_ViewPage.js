@@ -33,6 +33,8 @@ function Package_ViewPage() {
   const [pickupTimeError, setPickupTimeError] = useState("");
   const [pickupTime, setPickupTime] = useState("");
   const [pickupDateError, setPickupDateError] = useState("");
+  const [selectedPrice, setSelectedPrice] = useState(0);
+
   const Navigate = useNavigate();
   useEffect(() => {
     dispatch(getSinglePackageSliceItem({ id: id }));
@@ -45,10 +47,34 @@ function Package_ViewPage() {
       destination: "-",
       routeNo: 0,
       pickupDate: currentDate,
+      scheduleDate: currentDate,
       pickupTime: pickupTime,
       hour: "-",
       travelTime: "-",
       travelLength: "-",
+      vehicleId: selectedVehicle,
+      shortDescription: "",
+      tripStatus: "Booked",
+      noOfPassengers: "",
+      noOfBags: "",
+      meetAndGreet: "",
+      totalAmount: selectedPrice,
+      tripOccasion: "",
+      tripOccasionDetails: "",
+      totalKms: "",
+      stops: "",
+      totalHours: "",
+      bagType: "",
+      flightInformation: "",
+      needCarSeat: "",
+      seatCount: "",
+      gratuiryTypeCash: "",
+      gratuityAmount: "",
+      nightCharge: "",
+      discount: "",
+      voucherAmount: "",
+      voucherCode: "",
+      walletBalance: "",
     };
 
     dispatch(location(data));
@@ -86,7 +112,10 @@ function Package_ViewPage() {
                 background: selectedVehicle === res.id && "#c29c66",
                 cursor: "pointer",
               }}
-              onClick={() => setSelectedVehicle(res.id)}
+              onClick={() => {
+                setSelectedVehicle(res.id);
+                setSelectedPrice(parseInt(res.price));
+              }}
             >
               <input type="radio" />
               <div>{res.name}</div>
