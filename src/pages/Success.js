@@ -30,7 +30,7 @@ function Success() {
               Go Home
             </Button>
           </a>
-          <a href="/Profile">
+          <a href="/rides">
             <Button
               variant="contained"
               style={{ background: "black", color: "white" }}

@@ -7,12 +7,9 @@ const { Title } = Typography;
 
 function ProfileandRides() {
   return (
-    <div>
-      <h3>Trips</h3>
-      <div className="container pt-1 pb-4">
-        <Title level={3} style={{ color: "white", fontWeight: "700" }}>
-          Ride Status
-        </Title>
+    <div className="container">
+      <h3 className="mt-4">My Trips</h3>
+      <div className="pb-4">
         <OrderComponent />
       </div>
     </div>

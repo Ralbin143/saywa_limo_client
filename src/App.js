@@ -11,6 +11,7 @@ import Test from "./pages/Test";
 import ReferAndEarn from "./pages/ReferAndEarn";
 import PackagesPage from "./pages/Packages";
 import Package_ViewPage from "./pages/Package_ViewPage";
+import MainRidesList from "./pages/MainRidesList";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         {/* <Route path="/review-booking" element={<ReviewBooking />} /> */}
         {/* <Route path="/booking-ride" element={<BookRide />} /> */}
         <Route path="/Profile" element={<ProfilePage />} />
+        <Route path="/rides" element={<MainRidesList />} />
         <Route path="/test" element={<Test />} />
         <Route path="/success" element={<Success />} />
         <Route path="/make-payment/:id" element={<NewPayment />} />

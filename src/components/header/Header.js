@@ -24,6 +24,7 @@ import "./header.css";
 import { useSelector } from "react-redux";
 import { FaHandHoldingDollar } from "react-icons/fa6";
 import { FaWallet } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 import { instance } from "../../const/ApiHeader";
 import { GET_WALLET_BALANCE } from "../../const/ApiConst";
 import { IoMdRefresh } from "react-icons/io";
@@ -233,9 +234,20 @@ function Header() {
                 style={{ fontSize: "14px", color: "#808080" }}
               >
                 <ListItemIcon>
+                  <CgProfile />
+                </ListItemIcon>
+                <strong> Profile</strong>
+              </MenuItem>
+            </Link>
+            <Link to="/rides">
+              <MenuItem
+                onClick={handleClose}
+                style={{ fontSize: "14px", color: "#808080" }}
+              >
+                <ListItemIcon>
                   <DriveEtaIcon />
                 </ListItemIcon>
-                <strong> Profile & Rides</strong>
+                <strong>Rides</strong>
               </MenuItem>
             </Link>
             <Link to="/refer_and_earn" style={{ color: "#808080" }}>

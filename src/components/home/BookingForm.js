@@ -150,6 +150,8 @@ function BookingForm() {
   const [fromLocation, setFromLocation] = useState("");
   const [dropLocation, setDropLocation] = useState("");
   const [returnTrip, setReturnTrip] = useState("No");
+  const [returnDate, setReturnDate] = useState("");
+  const [returnTime, setReturnTime] = useState("");
   // ----------------------------------[Refs]----------------------------------
   const originRef = useRef();
   const hourlyOriginRef = useRef();
@@ -329,8 +331,11 @@ function BookingForm() {
     }
 
     const data = {
-      rideType: oneWayTrip ? "oneway-trip" : "hourly-trip",
-      returnTrip: returnTrip,
+      rideType: oneWayTrip
+        ? returnTrip === "Yes"
+          ? "round-trip"
+          : "oneway-trip"
+        : "hourly-trip",
       source: originRef.current.value,
       destination: destinationRef.current.value,
       routeNo: 0,
@@ -339,6 +344,9 @@ function BookingForm() {
       hour: hours,
       travelTime: duration,
       travelLength: distance,
+      returnTrip: returnTrip,
+      returnDate,
+      returnTime,
     };
     dispatch(location(data));
     sessionStorage.setItem("locationData", JSON.stringify(data));
@@ -412,41 +420,6 @@ function BookingForm() {
             />
           </Autocomplete>
           <div className="text-danger">{dropLocationError}</div>
-        </div>
-        <div className="d-flex flex-column w-100 pkp-container mt-2">
-          <small>Return Trip</small>
-          <div className="d-flex mt-2">
-            <div
-              style={{
-                cursor: "pointer",
-                textAlign: "center",
-                background: returnTrip === "Yes" ? "white" : "#1e1e1e",
-                color: returnTrip === "Yes" ? "#1e1e1e" : "white",
-                border: "1px solid white",
-                width: "100%",
-                borderRadius: "5px 0 0 5px",
-                padding: "5px",
-              }}
-              onClick={() => setReturnTrip("Yes")}
-            >
-              Yes
-            </div>
-            <div
-              style={{
-                cursor: "pointer",
-                textAlign: "center",
-                background: returnTrip === "No" ? "white" : "#1e1e1e",
-                color: returnTrip === "No" ? "#1e1e1e" : "white",
-                border: "1px solid white",
-                width: "100%",
-                borderRadius: "0 5px 5px 0",
-                padding: "5px",
-              }}
-              onClick={() => setReturnTrip("No")}
-            >
-              No
-            </div>
-          </div>
         </div>
       </div>
     );
@@ -541,13 +514,13 @@ function BookingForm() {
         pauseOnHover
         theme="dark"
       />
-      <div className=" d-flex flex-column">
+      <div className=" d-flex flex-column" style={{ maxWidth: "100vw" }}>
         <div className="d-flex justify-content-center">
           <div
             className="bookingSelectorParent p-3"
             style={{
               textAlign: "center",
-              width: "200px",
+              width: "100%",
               cursor: "pointer",
               color: "white",
               fontWeight: "900",
@@ -570,13 +543,13 @@ function BookingForm() {
               );
             }}
           >
-            One Way
+            {returnTrip === "Yes" ? "Round Trip" : "One Way Trip"}
           </div>
           <div
             className="bookingSelectorParent p-3"
             style={{
               textAlign: "center",
-              width: "200px",
+              // width: "200px",
               cursor: "pointer",
               color: "white",
               fontWeight: "900",
@@ -590,11 +563,11 @@ function BookingForm() {
             className="bookingSelectorParent p-3"
             style={{
               textAlign: "center",
-              width: "200px",
+              // width: "200px",
               cursor: "pointer",
               color: "white",
               fontWeight: "900",
-              background: !oneWayTrip ? "#c19b65" : "black",
+              background: "black",
             }}
             onClick={() => Navigate("/packages")}
           >
@@ -603,7 +576,7 @@ function BookingForm() {
         </div>
         <div className="w-100">
           {oneWayTrip ? (
-            <div className="p-4 pickupContainer" style={pickUpContainer}>
+            <div className="p-4 pickupContainer fadeIn" style={pickUpContainer}>
               {mapSelector()}
               <DateTimePicker
                 setCurrentDate={setCurrentDate}
@@ -612,6 +585,58 @@ function BookingForm() {
                 setPickupTime={setPickupTime}
                 pickupTimeError={pickupTimeError}
               />
+              <div className="d-flex flex-column w-100 pkp-container mt-2">
+                <small>Return Trip</small>
+                <div className="d-flex mt-2">
+                  <div
+                    style={{
+                      cursor: "pointer",
+                      textAlign: "center",
+                      background: returnTrip === "Yes" ? "white" : "#1e1e1e",
+                      color: returnTrip === "Yes" ? "#1e1e1e" : "white",
+                      border: "1px solid white",
+                      width: "100%",
+                      borderRadius: "5px 0 0 5px",
+                      padding: "5px",
+                    }}
+                    onClick={() => setReturnTrip("Yes")}
+                  >
+                    Yes
+                  </div>
+                  <div
+                    style={{
+                      cursor: "pointer",
+                      textAlign: "center",
+                      background: returnTrip === "No" ? "white" : "#1e1e1e",
+                      color: returnTrip === "No" ? "#1e1e1e" : "white",
+                      border: "1px solid white",
+                      width: "100%",
+                      borderRadius: "0 5px 5px 0",
+                      padding: "5px",
+                    }}
+                    onClick={() => setReturnTrip("No")}
+                  >
+                    No
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="d-flex flex-column align-items-center roundTripContainer"
+                style={{ height: returnTrip === "No" ? "0" : "250px" }}
+              >
+                <div className="d-flex flex-column w-100 pkp-container">
+                  <small>Return Date & Time</small>
+                  <DateTimePicker
+                    setCurrentDate={setReturnDate}
+                    setPickupDateError={setPickupDateError}
+                    pickupDateError={pickupDateError}
+                    setPickupTime={setReturnTime}
+                    pickupTimeError={pickupTimeError}
+                  />
+                </div>
+              </div>
+
               <div
                 className="text-center mt-3 reserveButtonHome"
                 onClick={() => reserveAction()}
@@ -620,7 +645,7 @@ function BookingForm() {
               </div>
             </div>
           ) : (
-            <div className="p-4 pickupContainer" style={pickUpContainer}>
+            <div className="p-4 pickupContainer fadeIn" style={pickUpContainer}>
               <div>
                 <div className="d-flex flex-column align-items-center">
                   <div className="d-flex flex-column w-100 pkp-container">

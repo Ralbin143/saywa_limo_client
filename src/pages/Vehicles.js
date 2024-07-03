@@ -894,6 +894,7 @@ function Vehicles() {
         ) : (
           data?.map((res, i) => (
             <div key={i} className="veh-dtls-container order-order-boxx">
+              {console.log(res)}
               <div className="vhllistviewimagecontainer mr-2">
                 <img
                   src={IMAGE_BASE_URL + res.images[0]}
@@ -946,7 +947,8 @@ function Vehicles() {
                 <div className="d-flex justify-content-around align-items-center gap-3"></div>
               </div>
               <div className=" vhllstrgtcntr">
-                {locations?.rideType === "oneway-trip" ? (
+                {locations?.rideType === "oneway-trip" ||
+                locations?.rideType === "round-trip" ? (
                   parseFloat(res.baseDistance) > totalKms ? (
                     <div style={{ fontSize: "25px", fontWeight: "600" }}>
                       ${" "}

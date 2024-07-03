@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { cancelOrder, getOrder } from "../../store/orders/OrderSlice";
 import Cookies from "js-cookie";
 import "./orders.css";
-import { Button, Skeleton } from "@mui/material";
+import { Box, Button, Skeleton } from "@mui/material";
 import { FaReceipt } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
@@ -157,15 +157,50 @@ function OrderComponent() {
   return (
     <div>
       {isLoading ? (
-        <div className="d-flex flex-column">
-          {/* <div> */}
-          <Skeleton height={250} />
-          {/* </div> */}
-          <Skeleton height={250} />
-          <Skeleton height={250} />
+        <div className="d-flex flex-column gap-0">
+          <Skeleton
+            width="100%"
+            height="100px"
+            style={{ margin: 0, padding: 0 }}
+          />
+          <Skeleton
+            width="100%"
+            height="100px"
+            style={{ margin: 0, padding: 0 }}
+          />
+          <Skeleton
+            width="100%"
+            height="100px"
+            style={{ margin: 0, padding: 0 }}
+          />
+          <Skeleton
+            width="100%"
+            height="100px"
+            style={{ margin: 0, padding: 0 }}
+          />
+          <Skeleton
+            width="100%"
+            height="100px"
+            style={{ margin: 0, padding: 0 }}
+          />
+          <Skeleton
+            width="100%"
+            height="100px"
+            style={{ margin: 0, padding: 0 }}
+          />
+          <Skeleton
+            width="100%"
+            height="100px"
+            style={{ margin: 0, padding: 0 }}
+          />
+          <Skeleton
+            width="100%"
+            height="100px"
+            style={{ margin: 0, padding: 0 }}
+          />
         </div>
       ) : (
-        <div>
+        <div className="fadeIn">
           {orders?.data?.map((res, i) => (
             <div
               className="order-order-card order-order-boxx"

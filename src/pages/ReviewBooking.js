@@ -896,6 +896,13 @@ function ReviewBooking() {
                             Transfers
                           </small>
                         </div>
+                      ) : locations.rideType === "round-trip" ? (
+                        <div>
+                          <div>Round Trip</div>
+                          <small>
+                            Reservations are meant for up and down Transfers
+                          </small>
+                        </div>
                       ) : (
                         "Hourly Trip"
                       )}
@@ -1385,6 +1392,7 @@ function ReviewBooking() {
                           type="text"
                           className="emptyInput"
                           value={seatCount}
+                          placeholder="eg: 1 Child seat"
                           onChange={(e) =>
                             CarSeatTottle
                               ? setSeatCount(e.target.value)
@@ -1609,7 +1617,8 @@ function ReviewBooking() {
                       <div style={{ fontSize: "14px" }}>
                         $
                         <div style={{ display: "none" }}>
-                          {locations?.rideType === "oneway-trip" ? (
+                          {locations?.rideType === "oneway-trip" ||
+                          locations?.rideType === "round-trip" ? (
                             parseFloat(vehicles[0]?.baseDistance) > totalKms ? (
                               (ggtotal =
                                 parseFloat(vehicles[0]?.basePrice) +
@@ -1785,16 +1794,27 @@ function ReviewBooking() {
                       className="text-end"
                       style={{ fontSize: "25px", fontWeight: "600" }}
                     >
+                      <div style={{ display: "none" }}>
+                        ${" "}
+                        {meetAndGreet === "Yes"
+                          ? (finalInvoiceAmount =
+                              ggtotal + gratuty + 25 - discountValue).toFixed(
+                              0
+                            ) -
+                            referalOfferValue -
+                            walletBalance
+                          : (finalInvoiceAmount =
+                              ggtotal + gratuty + 0 - discountValue).toFixed(
+                              0
+                            ) -
+                            referalOfferValue -
+                            walletBalance}
+                        .00
+                      </div>
                       ${" "}
-                      {meetAndGreet === "Yes"
-                        ? (finalInvoiceAmount =
-                            ggtotal + gratuty + 25 - discountValue).toFixed(0) -
-                          referalOfferValue -
-                          walletBalance
-                        : (finalInvoiceAmount =
-                            ggtotal + gratuty + 0 - discountValue).toFixed(0) -
-                          referalOfferValue -
-                          walletBalance}
+                      {locations.rideType === "round-trip"
+                        ? finalInvoiceAmount.toFixed(0) * 2
+                        : finalInvoiceAmount}
                       .00
                     </div>
                   </div>
