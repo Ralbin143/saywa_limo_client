@@ -1813,8 +1813,9 @@ function ReviewBooking() {
                       </div>
                       ${" "}
                       {locations.rideType === "round-trip"
-                        ? finalInvoiceAmount.toFixed(0) * 2
-                        : finalInvoiceAmount}
+                        ? (finalInvoiceAmount =
+                            finalInvoiceAmount.toFixed(0) * 2)
+                        : (finalInvoiceAmount = finalInvoiceAmount.toFixed(0))}
                       .00
                     </div>
                   </div>

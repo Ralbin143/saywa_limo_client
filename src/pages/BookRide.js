@@ -58,8 +58,8 @@ function BookRide() {
   const { locations } = useSelector((state) => state?.locations);
 
   const udtlCookie = Cookies.get("udtl");
-  const userID = JSON.parse(udtlCookie).uid;
-  const userName = JSON.parse(udtlCookie).fullName || "";
+  const userID = JSON.parse(udtlCookie)?.uid;
+  const userName = JSON.parse(udtlCookie)?.fullName || "";
 
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -169,9 +169,8 @@ function BookRide() {
 
   const handleChange = async ({ fileList: newFileList }) => {
     // Convert newly added files to base64
-    console.log("daasdasd");
     const updatedFileList = await Promise.all(
-      newFileList.map(async (file) => {
+      newFileList?.map(async (file) => {
         if (!file.url && !file.preview) {
           file.preview = await getBase64(file.originFileObj);
         }
