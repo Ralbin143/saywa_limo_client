@@ -14,7 +14,7 @@ function DraggableWaypoints() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    if (wayPointsList.length !== 0) {
+    if (wayPointsList?.length !== 0) {
       setTimeout(() => {
         setTasks(wayPointsList);
       }, 100);

@@ -382,7 +382,7 @@ function BookingForm() {
           <div className="text-danger">{pickUPLocationError}</div>
         </div>
         <DraggableWaypoints />
-        {wayPointsList.length < 4 ? (
+        {wayPointsList?.length < 4 ? (
           <div
             className="mt-2"
             style={{

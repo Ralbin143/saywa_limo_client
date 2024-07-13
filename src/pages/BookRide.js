@@ -13,6 +13,7 @@ import "./bookdrive.css";
 import { activeStepx } from "../store/StepperSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { LoadingButton } from "@mui/lab";
+import { useNavigate } from "react-router-dom";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -24,7 +25,7 @@ const getBase64 = (file) =>
 
 function BookRide() {
   const { data } = useSelector((state) => state?.vehicles?.vehicles);
-
+  const navigate = useNavigate();
   const { isLoading, isSuccess, orders } = useSelector(
     (state) => state?.orders
   );
@@ -736,7 +737,11 @@ function BookRide() {
             border: "1px solid #000000",
             color: "black",
           }}
-          onClick={() => dispatch(activeStepx(1))}
+          onClick={() => {
+            locations?.rideType === "package-trip"
+              ? navigate("/")
+              : dispatch(activeStepx(1));
+          }}
         >
           Back
         </Button>

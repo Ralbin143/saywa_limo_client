@@ -20,12 +20,13 @@ import { instance } from "../const/ApiHeader";
 import { ToastContainer, toast } from "react-toastify";
 import { getSingleVehicles } from "../store/vehicles/SingleVehicleSlice";
 import { wayPoints } from "../store/WaypointSlice";
-import { Tooltip } from "antd";
+import { Switch, Tooltip } from "antd";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { resetSuccess } from "../store/orders/OrderSlice";
 import OrderSummarySkeleton from "../components/orderSummaryPreview/OrderSummarySkeleton";
 import { BiSolidOffer } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 const center = { lat: 48.8584, lng: 2.2945 };
 const libraries = ["places"];
@@ -1384,7 +1385,7 @@ function ReviewBooking() {
                         </div>
                       </div>
                     </div>
-
+                    {/* 
                     {CarSeatTottle && (
                       <div className="pkp-containerz d-flex flex-column w-100">
                         <small>How many / What type</small>
@@ -1400,7 +1401,55 @@ function ReviewBooking() {
                           }
                         />
                       </div>
-                    )}
+                    )} */}
+
+                    <div>
+                      <div>+ Add Seat</div>
+                      <div className="d-flex align-items-center">
+                        <select className="w-100">
+                          <option>Infant (ages 0-1)</option>
+                          <option>Toddler Seat (ages 1-3)</option>
+                          <option>Booster Seat (ages 3-6)</option>
+                        </select>
+                        <div
+                          style={{
+                            border: "1px solid white",
+                            textAlign: "center",
+                            width: "40px",
+                            padding: "10px",
+                            height: "30px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          -
+                        </div>
+                        <input type="text" style={{ width: "40px" }} />
+                        <div
+                          style={{
+                            border: "1px solid white",
+                            textAlign: "center",
+                            width: "40px",
+                            padding: "10px",
+                            height: "30px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          +
+                        </div>
+                        <FaDeleteLeft size={20} />
+                      </div>
+                    </div>
+
+                    <div className="pkp-containerz ">
+                      <div>Wheelchair Accessable</div>
+                      <div>
+                        <Switch />
+                      </div>
+                    </div>
 
                     <div className="pkp-containerz w-100">
                       <small>Flight Information (Optional)</small>

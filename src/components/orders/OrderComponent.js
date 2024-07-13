@@ -134,7 +134,7 @@ function OrderComponent() {
     setDownloadLoading(true);
     try {
       const response = await axios({
-        url: "https://api.saywalimo.com/api/trip/download-invoice", // Change URL if needed
+        url: `${process.env.REACT_APP_BASE_URL}/api/trip/download-invoice`, // Change URL if needed
         method: "POST",
         data: { data },
         responseType: "blob",
@@ -402,6 +402,7 @@ function OrderComponent() {
             loading={downloadLoading}
             loadingIndicator={<div>Downloading...</div>}
             variant="contained"
+            style={{ background: downloadLoading ? "grey" : "black" }}
             startIcon={<FaReceipt />}
             // style={{ color: "white", background: "black" }}
             onClick={() => downloadInvoice(tripData)}
