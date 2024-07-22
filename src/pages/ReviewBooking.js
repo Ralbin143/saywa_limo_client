@@ -107,10 +107,19 @@ function ReviewBooking() {
   };
 
   const handleIncrement = (index) => {
-    const newSeats = seats.map((seat, i) =>
-      i === index ? { ...seat, count: seat.count + 1 } : seat
-    );
-    setSeats(newSeats);
+    // Calculate the total seat count
+    const totalSeats = seats.reduce((total, seat) => total + seat.count, 0);
+
+    if (totalSeats <= 5) {
+      const newSeats = seats.map((seat, i) =>
+        i === index ? { ...seat, count: seat.count + 1 } : seat
+      );
+
+      setSeats(newSeats);
+    } else {
+      // Optional: handle the case when total seat count is 6 or more
+      console.log("Maximum total seat count reached");
+    }
   };
 
   const handleDecrement = (index) => {
