@@ -894,7 +894,6 @@ function Vehicles() {
         ) : (
           data?.map((res, i) => (
             <div key={i} className="veh-dtls-container order-order-boxx">
-              {console.log(res)}
               <div className="vhllistviewimagecontainer mr-2">
                 <img
                   src={IMAGE_BASE_URL + res.images[0]}

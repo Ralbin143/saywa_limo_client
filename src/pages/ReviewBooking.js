@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, CircularProgress } from "@mui/material";
+import { Button } from "@mui/material";
 import {
   useJsApiLoader,
   GoogleMap,
@@ -83,6 +83,42 @@ function ReviewBooking() {
   const [referalOfferValue, setReferalOfferValue] = useState(0);
   const [voucherCode, setVoucherCode] = useState("");
   const [walletBalance, setWalletBalance] = useState(0);
+
+  const [selectedSeat, setSelectedSeat] = useState("Infant (ages 0-1)");
+  const [seats, setSeats] = useState([]);
+
+  const handleSelectChange = (e) => {
+    setSelectedSeat(e.target.value);
+  };
+
+  const handleAddSeat = () => {
+    // setSeats([...seats, { type: selectedSeat, count: 1 }]);
+    const seatIndex = seats.findIndex((seat) => seat.type === selectedSeat);
+    if (seatIndex >= 0) {
+      handleIncrement(seatIndex);
+    } else {
+      setSeats([...seats, { type: selectedSeat, count: 1 }]);
+    }
+  };
+
+  const handleRemoveSeat = (index) => {
+    const newSeats = seats.filter((seat, i) => i !== index);
+    setSeats(newSeats);
+  };
+
+  const handleIncrement = (index) => {
+    const newSeats = seats.map((seat, i) =>
+      i === index ? { ...seat, count: seat.count + 1 } : seat
+    );
+    setSeats(newSeats);
+  };
+
+  const handleDecrement = (index) => {
+    const newSeats = seats.map((seat, i) =>
+      i === index && seat.count > 1 ? { ...seat, count: seat.count - 1 } : seat
+    );
+    setSeats(newSeats);
+  };
 
   var discountValue = 0;
   var finalInvoiceAmount = 0;
@@ -571,6 +607,7 @@ function ReviewBooking() {
       email: JSON.parse(Cookies.get("udtl")).email,
     };
     const result = await instance.post(GET_ALL_OFFERS_URL, data);
+
     setCustomerData(result.data[0]);
     setVoucherData(result.data[1]);
   };
@@ -771,7 +808,7 @@ function ReviewBooking() {
       customerId: customerId,
       vehicleId: vehicle,
       scheduleDate: locations?.pickupDate,
-      scheduleTime: locations?.pickupDate,
+      scheduleTime: locations?.pickupTime,
       shortDescription,
       tripStatus: "Booked",
       noOfPassengers,
@@ -789,7 +826,7 @@ function ReviewBooking() {
       bagType: bagType,
       flightInformation: flightInformation,
       needCarSeat: CarSeatTottle ? "Yes" : "No",
-      seatCount: seatCount,
+      seatCount: seats,
       shortDescription: additionalInfo,
       travelLength: totalKms,
       gratuiryTypeCash: !gratuiryTypeCash ? "Cash" : "Auto-Charge Online",
@@ -799,6 +836,8 @@ function ReviewBooking() {
       voucherAmount: referalOfferValue + walletBalance,
       voucherCode: voucherCode,
       walletBalance: walletBalance,
+      returnDate: locations?.returnDate,
+      returnTime: locations?.returnTime,
     };
 
     dispatch(location(bookingData));
@@ -1202,7 +1241,7 @@ function ReviewBooking() {
                               )
                             )}
                           </select> */}
-                          {/* <select
+                          <select
                             className="emptyInput"
                             value={checkedBagCount}
                             onChange={(e) =>
@@ -1218,9 +1257,9 @@ function ReviewBooking() {
                                 <option key={index}>{index}</option>
                               )
                             )}
-                          </select> */}
+                          </select>
 
-                          <div className="d-flex justify-content-between">
+                          {/* <div className="d-flex justify-content-between">
                             <div
                               style={{
                                 cursor: "pointer",
@@ -1271,12 +1310,12 @@ function ReviewBooking() {
                             >
                               +
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="d-flex flex-column justify-content-between w-100">
                           <small>Carry-on</small>
 
-                          {/* <select
+                          <select
                             className="emptyInput"
                             value={carryOnBagsCount}
                             onChange={(e) =>
@@ -1292,9 +1331,9 @@ function ReviewBooking() {
                                 <option key={index}>{index}</option>
                               )
                             )}
-                          </select> */}
+                          </select>
 
-                          <div className="d-flex">
+                          {/* <div className="d-flex">
                             <div
                               style={{
                                 cursor: "pointer",
@@ -1344,7 +1383,7 @@ function ReviewBooking() {
                             >
                               +
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -1406,7 +1445,7 @@ function ReviewBooking() {
                     <div>
                       <div>+ Add Seat</div>
                       <div className="d-flex align-items-center">
-                        <select className="w-100">
+                        <select className="w-100" onChange={handleSelectChange}>
                           <option>Infant (ages 0-1)</option>
                           <option>Toddler Seat (ages 1-3)</option>
                           <option>Booster Seat (ages 3-6)</option>
@@ -1421,27 +1460,69 @@ function ReviewBooking() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
+                            cursor: "pointer",
                           }}
-                        >
-                          -
-                        </div>
-                        <input type="text" style={{ width: "40px" }} />
-                        <div
-                          style={{
-                            border: "1px solid white",
-                            textAlign: "center",
-                            width: "40px",
-                            padding: "10px",
-                            height: "30px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
+                          onClick={handleAddSeat}
                         >
                           +
                         </div>
-                        <FaDeleteLeft size={20} />
                       </div>
+                      <ul>
+                        {seats.map((seat, index) => (
+                          <li key={index} className="d-flex align-items-center">
+                            {seat.type}
+                            <div
+                              style={{
+                                border: "1px solid white",
+                                textAlign: "center",
+                                width: "40px",
+                                padding: "10px",
+                                height: "30px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                cursor: "pointer",
+                                marginLeft: "10px",
+                              }}
+                              onClick={() => handleDecrement(index)}
+                            >
+                              -
+                            </div>
+                            <input
+                              type="text"
+                              value={seat.count}
+                              readOnly
+                              style={{
+                                width: "40px",
+                                textAlign: "center",
+                                marginLeft: "10px",
+                              }}
+                            />
+                            <div
+                              style={{
+                                border: "1px solid white",
+                                textAlign: "center",
+                                width: "40px",
+                                padding: "10px",
+                                height: "30px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                cursor: "pointer",
+                                marginLeft: "10px",
+                              }}
+                              onClick={() => handleIncrement(index)}
+                            >
+                              +
+                            </div>
+                            <FaDeleteLeft
+                              size={20}
+                              style={{ marginLeft: "10px", cursor: "pointer" }}
+                              onClick={() => handleRemoveSeat(index)}
+                            />
+                          </li>
+                        ))}
+                      </ul>
                     </div>
 
                     <div className="pkp-containerz ">
@@ -1738,7 +1819,8 @@ function ReviewBooking() {
                       ${" "}
                       {tripType === 30
                         ? (discountValue = (
-                            parseFloat(vehicles[0]?.basePrice) * 0.1
+                            (parseFloat(ggtotal) + parseFloat(gratuty)) *
+                            0.1
                           )
                             .toFixed(2)
                             .toString()
@@ -1754,9 +1836,10 @@ function ReviewBooking() {
                             .replace(/\B(?=(\d{3})+(?!\d))/g, ","))}
                     </div>
                   </div>
-                  {customerData?.wallet_balance !== 0 ||
-                    customerData?.wallet_balance !== undefined ||
-                    (customerData?.wallet_balance !== null && (
+
+                  {customerData?.wallet_balance !== 0 &&
+                    customerData?.wallet_balance !== undefined &&
+                    customerData?.wallet_balance !== null && (
                       <div
                         className="d-flex flex-column justify-content-between mt-2 mb-2"
                         style={{
@@ -1788,51 +1871,56 @@ function ReviewBooking() {
                           </small>
                         </div>
                       </div>
-                    ))}
+                    )}
 
-                  {voucherData.map((res, i) => (
-                    <div
-                      className="d-flex justify-content-between mt-2 mb-2 align-items-center"
-                      style={{
-                        background: "#1e1e1e",
-                        padding: "10px 15px",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      <BiSolidOffer
-                        style={{
-                          color: "rgb(255, 213, 164)",
-                          width: "30px",
-                          height: "30px",
-                        }}
-                      />
-                      <div className="d-flex flex-column">
-                        <b>Referral Offer</b>
-                        <small>save upto $25</small>
-                      </div>
-                      {referalOfferValue === 0 ? (
+                  {voucherData.map(
+                    (res, i) =>
+                      res.amount !== 0 &&
+                      res.amount !== undefined &&
+                      res.amount !== null && (
                         <div
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            setVoucherCode(res?.referal_code);
-                            setReferalOfferValue(referalOfferValue + 25);
+                          className="d-flex justify-content-between mt-2 mb-2 align-items-center"
+                          style={{
+                            background: "#1e1e1e",
+                            padding: "10px 15px",
+                            borderRadius: "5px",
                           }}
                         >
-                          Apply
+                          <BiSolidOffer
+                            style={{
+                              color: "rgb(255, 213, 164)",
+                              width: "30px",
+                              height: "30px",
+                            }}
+                          />
+                          <div className="d-flex flex-column">
+                            <b>Referral Offer</b>
+                            <small>save upto $25</small>
+                          </div>
+                          {referalOfferValue === 0 ? (
+                            <div
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                setVoucherCode(res?.referal_code);
+                                setReferalOfferValue(referalOfferValue + 25);
+                              }}
+                            >
+                              Apply
+                            </div>
+                          ) : (
+                            <div
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                setVoucherCode("");
+                                setReferalOfferValue(referalOfferValue - 25);
+                              }}
+                            >
+                              Remove
+                            </div>
+                          )}
                         </div>
-                      ) : (
-                        <div
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            setVoucherCode("");
-                            setReferalOfferValue(referalOfferValue - 25);
-                          }}
-                        >
-                          Remove
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                      )
+                  )}
 
                   <hr />
                   <div className="d-flex justify-content-between">
@@ -1843,29 +1931,27 @@ function ReviewBooking() {
                       className="text-end"
                       style={{ fontSize: "25px", fontWeight: "600" }}
                     >
-                      <div style={{ display: "none" }}>
-                        ${" "}
-                        {meetAndGreet === "Yes"
-                          ? (finalInvoiceAmount =
-                              ggtotal + gratuty + 25 - discountValue).toFixed(
-                              0
-                            ) -
-                            referalOfferValue -
-                            walletBalance
-                          : (finalInvoiceAmount =
-                              ggtotal + gratuty + 0 - discountValue).toFixed(
-                              0
-                            ) -
-                            referalOfferValue -
-                            walletBalance}
-                        .00
-                      </div>
+                      {/* <div
+                      // style={{ display: "none" }}
+                      > */}
                       ${" "}
+                      {meetAndGreet === "Yes"
+                        ? (finalInvoiceAmount =
+                            ggtotal + gratuty + 25 - discountValue).toFixed(0) -
+                          referalOfferValue -
+                          walletBalance
+                        : (finalInvoiceAmount =
+                            ggtotal + gratuty + 0 - discountValue).toFixed(0) -
+                          referalOfferValue -
+                          walletBalance}
+                      .00
+                      {/* </div> */}
+                      {/* ${" "}
                       {locations.rideType === "round-trip"
                         ? (finalInvoiceAmount =
                             finalInvoiceAmount.toFixed(0) * 2)
                         : (finalInvoiceAmount = finalInvoiceAmount.toFixed(0))}
-                      .00
+                      .00 */}
                     </div>
                   </div>
 

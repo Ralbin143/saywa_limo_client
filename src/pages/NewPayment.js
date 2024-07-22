@@ -54,7 +54,10 @@ function NewPayment() {
       totalHours: locations?.hour,
       rideType: locations?.rideType,
       stops: locations?.stops,
+      returnDate: locations?.returnDate,
+      returnTime: locations?.returnTime,
     };
+
     dispatch(newOrder(data));
   };
 

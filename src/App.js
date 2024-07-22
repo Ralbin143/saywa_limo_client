@@ -27,7 +27,7 @@ function App() {
         <Route path="/Profile" element={<ProfilePage />} />
         <Route path="/rides" element={<MainRidesList />} />
         <Route path="/test" element={<Test />} />
-        <Route path="/success" element={<Success />} />
+        <Route path="/success" element={<Success />} />x
         <Route path="/make-payment/:id" element={<NewPayment />} />
         <Route path="/payment/:id/:tripid" element={<Payment />} />
         <Route path="/refer_and_earn" element={<ReferAndEarn />} />

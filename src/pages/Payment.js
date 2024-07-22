@@ -20,8 +20,6 @@ function Payment() {
   const Navigate = useNavigate();
   const { orders } = useSelector((state) => state?.singleOrder);
 
-  console.log(orders);
-
   useEffect(() => {
     const data = {
       id: orderID,
@@ -60,7 +58,6 @@ function Payment() {
         theme: "dark",
       });
     } else {
-      console.log(result);
       if (result.paymentIntent.status === "succeeded") {
         // Handle payment success, e.g., show a success message
         // alert("show a success message");

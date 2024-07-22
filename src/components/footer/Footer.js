@@ -109,7 +109,9 @@ function Footer() {
             <ul className="nostyleUl">
               <li className="d-flex pt-2 pb-2">
                 <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>Home</div>
+                <div>
+                  <a href="https://saywalimo.com">Home</a>
+                </div>
               </li>
               <li className="d-flex pt-2 pb-2">
                 <HiChevronRight style={{ color: "#c29c66" }} />
