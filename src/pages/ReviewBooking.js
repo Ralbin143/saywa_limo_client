@@ -72,6 +72,7 @@ function ReviewBooking() {
   const [seatCount, setSeatCount] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [polylinePaths, setPolylinePaths] = useState([]);
+  const [rydeTypeState, setRydeTypeState] = useState("");
 
   const [checkedBagCount, setCheckedBagCount] = useState(1);
   const [carryOnBagsCount, setCarryOnBagsCount] = useState(0);
@@ -86,6 +87,14 @@ function ReviewBooking() {
 
   const [selectedSeat, setSelectedSeat] = useState("Infant (ages 0-1)");
   const [seats, setSeats] = useState([]);
+
+  useEffect(() => {
+    loadRydeType();
+  }, [locations?.rideType]);
+
+  const loadRydeType = () => {
+    setRydeTypeState(locations?.rideType);
+  };
 
   const handleSelectChange = (e) => {
     setSelectedSeat(e.target.value);
@@ -1940,27 +1949,29 @@ function ReviewBooking() {
                       className="text-end"
                       style={{ fontSize: "25px", fontWeight: "600" }}
                     >
-                      {/* <div
-                      // style={{ display: "none" }}
-                      > */}
+                      <div style={{ display: "none" }}>
+                        ${" "}
+                        {meetAndGreet === "Yes"
+                          ? (finalInvoiceAmount =
+                              ggtotal + gratuty + 25 - discountValue).toFixed(
+                              0
+                            ) -
+                            referalOfferValue -
+                            walletBalance
+                          : (finalInvoiceAmount =
+                              ggtotal + gratuty + 0 - discountValue).toFixed(
+                              0
+                            ) -
+                            referalOfferValue -
+                            walletBalance}
+                        .00
+                      </div>
                       ${" "}
-                      {meetAndGreet === "Yes"
-                        ? (finalInvoiceAmount =
-                            ggtotal + gratuty + 25 - discountValue).toFixed(0) -
-                          referalOfferValue -
-                          walletBalance
-                        : (finalInvoiceAmount =
-                            ggtotal + gratuty + 0 - discountValue).toFixed(0) -
-                          referalOfferValue -
-                          walletBalance}
-                      .00
-                      {/* </div> */}
-                      {/* ${" "}
-                      {locations.rideType === "round-trip"
+                      {rydeTypeState === "round-trip"
                         ? (finalInvoiceAmount =
                             finalInvoiceAmount.toFixed(0) * 2)
                         : (finalInvoiceAmount = finalInvoiceAmount.toFixed(0))}
-                      .00 */}
+                      .00
                     </div>
                   </div>
 
