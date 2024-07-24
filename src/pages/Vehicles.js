@@ -19,6 +19,8 @@ import Cookies from "js-cookie";
 import Login from "../components/login/Login";
 import { activeStepx } from "../store/StepperSlice";
 import { wayPoints } from "../store/WaypointSlice";
+import { LuBaggageClaim } from "react-icons/lu";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 const center = { lat: 48.8584, lng: 2.2945 };
 const libraries = ["places"];
@@ -942,12 +944,20 @@ function Vehicles() {
                   <FaMoneyCheckDollar /> &nbsp; Rate after base distance: $
                   {res.pricePerUnitDistance}
                 </div>
-
+                <div className="d-flex gap-2 w-100">
+                  <div className="d-flex align-items-center gap-1">
+                    <FaPeopleGroup size={20} />
+                    <div>{res.maxPersons}</div>
+                  </div>
+                  <div className="d-flex align-items-center gap-1">
+                    <LuBaggageClaim />
+                    <div> {res?.maxBags}</div>
+                  </div>
+                </div>
                 <div className="d-flex justify-content-around align-items-center gap-3"></div>
               </div>
               <div className=" vhllstrgtcntr">
-                {locations?.rideType === "oneway-trip" ||
-                locations?.rideType === "round-trip" ? (
+                {locations?.rideType === "oneway-trip" ? (
                   parseFloat(res.baseDistance) > totalKms ? (
                     <div style={{ fontSize: "25px", fontWeight: "600" }}>
                       ${" "}
@@ -964,6 +974,33 @@ function Vehicles() {
                           parseFloat(res.pricePerUnitDistance) +
                         parseFloat(res.basePrice) +
                         nightCharge
+                      )
+                        .toFixed(0)
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                  )
+                ) : locations?.rideType === "round-trip" ? (
+                  parseFloat(res.baseDistance) > totalKms ? (
+                    <div style={{ fontSize: "25px", fontWeight: "600" }}>
+                      ${" "}
+                      {(
+                        (parseFloat(res.basePrice) + nightCharge - tripType) *
+                        2
+                      )
+                        .toFixed(0)
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: "25px", fontWeight: "600" }}>
+                      ${" "}
+                      {(
+                        ((totalKms - parseFloat(res.baseDistance)) *
+                          parseFloat(res.pricePerUnitDistance) +
+                          parseFloat(res.basePrice) +
+                          nightCharge) *
+                        2
                       )
                         .toFixed(0)
                         .toString()
