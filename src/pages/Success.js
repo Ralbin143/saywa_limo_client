@@ -17,9 +17,13 @@ function Success() {
       >
         <img src={successImage} alt="" style={{ width: "100px" }} />
         <div className="mt-4">
-          We received your booking details. will be in touch shortly
+          Thank you for providing your booking details. We will be in contact
+          with you shortly.
         </div>
-        <div>You can track your ride details on your account section</div>
+        <div>
+          For real-time updates, please refer to the "Account" section to track
+          your ride information.
+        </div>
         <div className="text-center d-flex gap-2 mt-4 w-100 justify-content-center">
           <a href="/">
             <Button
@@ -37,7 +41,7 @@ function Success() {
               type="primary"
               onClick={() => sessionStorage.setItem("ordertabindex", 1)}
             >
-              Go to Orders
+              My Trips
             </Button>
           </a>
         </div>

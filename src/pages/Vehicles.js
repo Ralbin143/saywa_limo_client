@@ -904,7 +904,7 @@ function Vehicles() {
                   style={{
                     height: "150px",
                     width: "200px",
-                    objectFit: "cover",
+                    objectFit: "contain",
                   }}
                 />
               </div>

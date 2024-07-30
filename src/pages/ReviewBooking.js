@@ -27,6 +27,7 @@ import OrderSummarySkeleton from "../components/orderSummaryPreview/OrderSummary
 import { BiSolidOffer } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { FaDeleteLeft } from "react-icons/fa6";
+import { FaWheelchair } from "react-icons/fa";
 
 const center = { lat: 48.8584, lng: 2.2945 };
 const libraries = ["places"];
@@ -751,10 +752,10 @@ function ReviewBooking() {
               />
             </div>
           </div>
-          <div className="col-12 col-md-5 text-end d-flex flex-column" sty>
+          <div className="col-12 col-md-5 text-end d-flex flex-column">
             <div
               style={{
-                display: "grid",
+                display: "none",
                 gridTemplateColumns: "auto auto",
                 gap: "10px",
               }}
@@ -1544,7 +1545,9 @@ function ReviewBooking() {
                     </div>
 
                     <div className="pkp-containerz ">
-                      <div>Wheelchair Accessable</div>
+                      <div>
+                        <FaWheelchair /> Wheelchair passenger
+                      </div>
                       <div>
                         <Switch />
                       </div>
@@ -1943,7 +1946,7 @@ function ReviewBooking() {
                   <hr />
                   <div className="d-flex justify-content-between">
                     <div style={{ fontSize: "25px", fontWeight: "600" }}>
-                      Grand Total
+                      Total Fee
                     </div>
                     <div
                       className="text-end"

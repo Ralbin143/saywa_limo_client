@@ -343,13 +343,13 @@ function OrderComponent() {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <label>Base Price</label>
+                  <label>Base Fee</label>
                   <label>$ {tripData.vehicle[0].basePrice}</label>
                 </div>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <label>Night Charge</label>
+                  <label>Prime Time Fee</label>
                   <label>
                     $ {tripData.nightCharge ? tripData.nightCharge : 0}
                   </label>
@@ -365,7 +365,7 @@ function OrderComponent() {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <label>Distance Charge</label>
+                  <label>Mileage Fee</label>
                   <label>$ {extraDistance}</label>
                 </div>
                 <div

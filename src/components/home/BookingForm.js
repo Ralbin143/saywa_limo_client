@@ -543,7 +543,7 @@ function BookingForm() {
               );
             }}
           >
-            {returnTrip === "Yes" ? "Round Trip" : "One Way Trip"}
+            {returnTrip === "Yes" ? "Round Trip" : "One Way"}
           </div>
           <div
             className="bookingSelectorParent p-3"
@@ -586,7 +586,7 @@ function BookingForm() {
                 pickupTimeError={pickupTimeError}
               />
               <div className="d-flex flex-column w-100 pkp-container mt-2">
-                <small>Return Trip</small>
+                <small>Round Trip</small>
                 <div className="d-flex mt-2">
                   <div
                     style={{
@@ -641,7 +641,7 @@ function BookingForm() {
                 className="text-center mt-3 reserveButtonHome"
                 onClick={() => reserveAction()}
               >
-                Reserve Now
+                Book now
               </div>
             </div>
           ) : (
@@ -702,7 +702,7 @@ function BookingForm() {
                 className="text-center mt-3 reserveButtonHome"
                 onClick={() => reserveHourlyAction()}
               >
-                Reserve Now
+                Book now
               </div>
             </div>
           )}
