@@ -105,7 +105,7 @@ function Footer() {
             </div>
           </div>
           <div className="col-lg-2 col-md-6">
-            <strong>Useful Links</strong>
+            <strong>Company</strong>
             <ul className="nostyleUl">
               <li className="d-flex pt-2 pb-2">
                 <HiChevronRight style={{ color: "#c29c66" }} />
@@ -114,51 +114,83 @@ function Footer() {
                 </div>
               </li>
               <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>About us</div>
+                <a href="https://saywalimo.com/about-us" className="d-flex">
+                  <HiChevronRight style={{ color: "#c29c66" }} />
+                  <div>About us</div>
+                </a>
               </li>
               <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>Services</div>
+                <a href="https://saywalimo.com/services" className="d-flex">
+                  <HiChevronRight style={{ color: "#c29c66" }} />
+                  <div>Services</div>
+                </a>
               </li>
               <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>Fleet & Packages</div>
+                <a
+                  href="https://saywalimo.com/booking-application"
+                  className="d-flex"
+                >
+                  <HiChevronRight style={{ color: "#c29c66" }} />
+                  <div>Booking Application</div>
+                </a>
               </li>
               <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>Terms of service</div>
+                <a
+                  href="https://saywalimo.com/terms-of-service"
+                  className="d-flex"
+                >
+                  <HiChevronRight style={{ color: "#c29c66" }} />
+                  <div>Terms of service</div>
+                </a>
               </li>
               <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>Privacy policy</div>
-              </li>
-              <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>Sitemap</div>
+                <a
+                  href="https://saywalimo.com/refund-policy"
+                  className="d-flex"
+                >
+                  <HiChevronRight style={{ color: "#c29c66" }} />
+                  <div>Refund policy</div>
+                </a>
               </li>
             </ul>
           </div>
           <div className="col-lg-2 col-md-6 footer-links">
             <ul className="nostyleUl">
               <li>
-                <strong>Our Services</strong>
+                <strong>Services</strong>
               </li>
               <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>Corporate Service</div>
+                <a
+                  href="https://saywalimo.com/airport-transportation-services"
+                  className="d-flex"
+                >
+                  <HiChevronRight style={{ color: "#c29c66" }} />
+                  <div>Airport Transportation Service</div>
+                </a>
               </li>
               <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>VIP Service</div>
+                <a
+                  href="https://saywalimo.com/party-event-services"
+                  className="d-flex"
+                >
+                  <HiChevronRight style={{ color: "#c29c66" }} />
+                  <div>Party Event Services</div>
+                </a>
               </li>
               <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>Airport Service</div>
+                <a
+                  href="https://saywalimo.com/corporate-service"
+                  className="d-flex"
+                >
+                  <HiChevronRight style={{ color: "#c29c66" }} />
+                  <div>Corporate Service</div>
+                </a>
               </li>
               <li className="d-flex pt-2 pb-2">
-                <HiChevronRight style={{ color: "#c29c66" }} />
-                <div>Party Service</div>
+                <a href="https://saywalimo.com/vip-service" className="d-flex">
+                  <HiChevronRight style={{ color: "#c29c66" }} />
+                  <div>VIP Service</div>
+                </a>
               </li>
             </ul>
           </div>

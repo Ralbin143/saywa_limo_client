@@ -56,9 +56,13 @@ function NewPayment() {
       stops: locations?.stops,
       returnDate: locations?.returnDate,
       returnTime: locations?.returnTime,
+      seatCount: locations?.seatCount,
+      needWheelChair: locations?.needWheelChair,
     };
 
-    dispatch(newOrder(data));
+    console.log(data);
+
+    // dispatch(newOrder(data));
   };
 
   useEffect(() => {

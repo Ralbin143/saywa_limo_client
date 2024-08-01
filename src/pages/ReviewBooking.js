@@ -74,6 +74,7 @@ function ReviewBooking() {
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [polylinePaths, setPolylinePaths] = useState([]);
   const [rydeTypeState, setRydeTypeState] = useState("");
+  const [needWheelChair, setNeedWheelChair] = useState("No");
 
   const [checkedBagCount, setCheckedBagCount] = useState(1);
   const [carryOnBagsCount, setCarryOnBagsCount] = useState(0);
@@ -857,6 +858,7 @@ function ReviewBooking() {
       walletBalance: walletBalance,
       returnDate: locations?.returnDate,
       returnTime: locations?.returnTime,
+      needWheelChair,
     };
 
     dispatch(location(bookingData));
@@ -1461,10 +1463,14 @@ function ReviewBooking() {
                       </div>
                     )} */}
 
-                    <div>
+                    <div className="pkp-containerz">
                       <div>+ Add Seat</div>
                       <div className="d-flex align-items-center">
-                        <select className="w-100" onChange={handleSelectChange}>
+                        <select
+                          className="w-100"
+                          onChange={handleSelectChange}
+                          style={{ padding: "3px 10px" }}
+                        >
                           <option>Infant (ages 0-1)</option>
                           <option>Toddler Seat (ages 1-3)</option>
                           <option>Booster Seat (ages 3-6)</option>
@@ -1489,7 +1495,7 @@ function ReviewBooking() {
                       <ul>
                         {seats.map((seat, index) => (
                           <li key={index} className="d-flex align-items-center">
-                            {seat.type}
+                            <small>{seat.type}</small>
                             <div
                               style={{
                                 border: "1px solid white",
@@ -1549,7 +1555,13 @@ function ReviewBooking() {
                         <FaWheelchair /> Wheelchair passenger
                       </div>
                       <div>
-                        <Switch />
+                        <Switch
+                          onChange={(value) => {
+                            value
+                              ? setNeedWheelChair("Yes")
+                              : setNeedWheelChair("No");
+                          }}
+                        />
                       </div>
                     </div>
 
