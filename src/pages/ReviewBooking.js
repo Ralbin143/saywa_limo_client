@@ -20,7 +20,7 @@ import { instance } from "../const/ApiHeader";
 import { ToastContainer, toast } from "react-toastify";
 import { getSingleVehicles } from "../store/vehicles/SingleVehicleSlice";
 import { wayPoints } from "../store/WaypointSlice";
-import { Switch, Tooltip } from "antd";
+import { Checkbox, Switch, Tooltip } from "antd";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { resetSuccess } from "../store/orders/OrderSlice";
 import OrderSummarySkeleton from "../components/orderSummaryPreview/OrderSummarySkeleton";
@@ -89,6 +89,15 @@ function ReviewBooking() {
 
   const [selectedSeat, setSelectedSeat] = useState("Infant (ages 0-1)");
   const [seats, setSeats] = useState([]);
+  const [isTermsAgreed, setIsTermsAgreed] = useState(false);
+
+  const agreeTerms = (e) => {
+    if (e.target.checked) {
+      setIsTermsAgreed(true);
+    } else {
+      setIsTermsAgreed(false);
+    }
+  };
 
   useEffect(() => {
     loadRydeType();
@@ -743,36 +752,54 @@ function ReviewBooking() {
   const loadVehicle = () => {
     return imgData?.map((res, i) => {
       return (
-        <div key={i} className="row review-vehicle-container  mt-4 pe-3">
-          <div className="col-12 col-md-7">
-            <div className="w-100">
-              <img
-                src={IMAGE_BASE_URL + firstImage}
-                alt=""
-                className="mobImgx"
-              />
-            </div>
-          </div>
-          <div className="col-12 col-md-5 text-end d-flex flex-column">
-            <div
+        <div
+          key={i}
+          className="d-flex flex-column review-vehicle-container p-13"
+          style={{
+            border: "1px solid #b5b5b575",
+            borderRadius: "15px",
+          }}
+        >
+          <div className="w-100">
+            <img
+              src={IMAGE_BASE_URL + firstImage}
+              alt=""
+              className="mobImgx"
               style={{
-                display: "none",
-                gridTemplateColumns: "auto auto",
+                height: "300px",
+                width: "100%",
+                objectFit: "cover",
+                borderRadius: "6px",
+                border: "1px solid #b5b5b575",
+              }}
+            />
+          </div>
+
+          <div className="text-end d-flex flex-column">
+            <div
+              className="mt-3"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
                 gap: "10px",
+                width: "100%",
+                overflow: "auto",
               }}
             >
               {res?.images?.map((res, ii) => (
-                <div className="mt-2" key={ii}>
-                  <img
-                    src={IMAGE_BASE_URL + res}
-                    alt=""
-                    style={{
-                      width: "100%",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => setFirstImage(res)}
-                  />
-                </div>
+                <img
+                  key={ii}
+                  src={IMAGE_BASE_URL + res}
+                  alt=""
+                  style={{
+                    // width: "100px",
+                    height: "80px",
+                    cursor: "pointer",
+                    objectFit: "cover",
+                    borderRadius: "6px",
+                  }}
+                  onClick={() => setFirstImage(res)}
+                />
               ))}
             </div>
             {/* <div>
@@ -859,6 +886,8 @@ function ReviewBooking() {
       returnDate: locations?.returnDate,
       returnTime: locations?.returnTime,
       needWheelChair,
+      carryOnBagsCount,
+      checkedBagCount,
     };
 
     dispatch(location(bookingData));
@@ -927,13 +956,24 @@ function ReviewBooking() {
   return (
     <>
       <ToastContainer />
-      <div style={{ background: "#343434" }}>
+      <div>
         <div className="container">
           <div className="row">
-            <div className="col-12 col-md-8">
-              <div className="review-booking-card">
+            <div className="col-12 col-md-8 pt-3 pb-3 ps-0 pe-0">
+              <div className="review-booking-card m-0">
                 {loadVehicle()}
-                <div className="d-flex justify-content-between p-2">
+                <div
+                  className="d-flex justify-content-between p-13 mt-3"
+                  style={{
+                    border: "1px solid #b5b5b575",
+                    borderRadius: "15px",
+                    color: "white",
+                    background:
+                      "linear-gradient(90deg, rgb(73, 61, 47), rgb(182, 152, 118))",
+                    padding: "10px",
+                    borderRadius: "10px",
+                  }}
+                >
                   <div>
                     <div style={{ fontSize: "20px", fontWeight: "900" }}>
                       {vehicles[0]?.vehicleName}
@@ -973,44 +1013,60 @@ function ReviewBooking() {
                 </div>
                 <div
                   style={{
-                    background: "white",
-                    color: "black",
-                    width: "100%",
-                    height: "25px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
+                    border: "1px solid #b5b5b575",
+                    borderRadius: "15px",
                   }}
+                  className="mt-3"
                 >
-                  <span style={{ fontSize: "14px" }}>Travel date & time:</span>
-                  <span style={{ fontWeight: "600" }}>
-                    {"  "}
-                    {locations.pickupDate} - {locations.pickupTime}
-                  </span>
-                </div>
-                <div className="d-flex justify-content-between p-2">
-                  <div>
-                    <div style={{ fontSize: "10px" }}>From,</div>
-                    <div>{locations.source}</div>
-                    {locations.rideType === "oneway-trip" ? (
-                      <div style={{ fontSize: "12px", fontWeight: "200" }}>
-                        {parseFloat(totalKms).toFixed(1)} mile(s)
-                      </div>
-                    ) : (
-                      <div style={{ fontSize: "12px", fontWeight: "200" }}>
-                        {locations.hour} Hours
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                    className="p-13"
+                  >
+                    <span style={{ fontSize: "14px" }}>
+                      Travel date & time:
+                    </span>
+                    <span style={{ fontWeight: "600" }}>
+                      {locations.pickupDate} - {locations.pickupTime}
+                    </span>
+                  </div>
+                  <div className="d-flex justify-content-between p-13">
+                    <div>
+                      <div style={{ fontSize: "10px" }}>Pickup,</div>
+                      <div>{locations.source}</div>
+                      {locations.rideType === "oneway-trip" ? (
+                        <div style={{ fontSize: "12px", fontWeight: "200" }}>
+                          {parseFloat(totalKms).toFixed(1)} mile(s)
+                        </div>
+                      ) : (
+                        <div style={{ fontSize: "12px", fontWeight: "200" }}>
+                          {locations.hour} Hours
+                        </div>
+                      )}
+                    </div>
+                    {locations.rideType === "hourly-trip" ? null : (
+                      <div>
+                        <div style={{ fontSize: "10px" }}>Dropoff,</div>
+                        <div>{locations.destination}</div>
                       </div>
                     )}
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "10px" }}>To,</div>
-                    <div>{locations.destination}</div>
                   </div>
                 </div>
               </div>
               <div>
-                <div className="review-booking-card p-3">
-                  <div style={{ fontWeight: "600" }}>Passenger Details</div>
+                <div
+                  className="review-booking-card p-13 mt-3"
+                  style={{
+                    border: "1px solid #b5b5b575",
+                    borderRadius: "15px",
+                  }}
+                >
+                  <div style={{ fontWeight: "600" }} className="mb-2">
+                    Passenger Details
+                  </div>
                   <div className="psngr-dtls-container gap-2">
                     <div className="pkp-containerz w-100">
                       <small>
@@ -1043,13 +1099,15 @@ function ReviewBooking() {
                       </div>
                     </div>
                     <div className="pkp-containerz w-100">
-                      <small>
-                        No of passengers <span className="text-danger">*</span>
-                      </small>
-                      <small style={{ fontSize: "10px" }}>
-                        Maximum Passengers Allowed -{" "}
-                        {parseInt(vehicles[0]?.maxPersons)}
-                      </small>
+                      <div className="d-flex align-items-center gap-2">
+                        <small>
+                          No of passengers{" "}
+                          <span className="text-danger">*</span>
+                        </small>
+                        <small style={{ fontSize: "10px" }}>
+                          ( Max - {parseInt(vehicles[0]?.maxPersons)})
+                        </small>
+                      </div>
                       <select
                         className="emptyInput"
                         value={noOfPassengers}
@@ -1091,8 +1149,8 @@ function ReviewBooking() {
                         </Tooltip>
                       </div>
 
-                      <div className="d-flex gap-2">
-                        <div style={{ marginTop: "13px" }}>
+                      <div className="d-flex  gap-4">
+                        <div className="">
                           <input
                             type="radio"
                             id="meet-yes"
@@ -1101,9 +1159,9 @@ function ReviewBooking() {
                             checked={meetAndGreet === "Yes"}
                             onChange={handleOptionChange}
                           />
-                          <label htmlFor="meet-yes"> Yes</label>
+                          <label htmlFor="meet-yes">&nbsp; Yes </label>
                         </div>
-                        <div style={{ marginTop: "13px" }}>
+                        <div>
                           <input
                             type="radio"
                             id="meet-no"
@@ -1112,13 +1170,15 @@ function ReviewBooking() {
                             checked={meetAndGreet === "No"}
                             onChange={handleOptionChange}
                           />
-                          <label htmlFor="meet-no">No</label>
+                          <label htmlFor="meet-no"> &nbsp;No</label>
                         </div>
                       </div>
                     </div>
                     <div className="pkp-containerz d-flex flex-column w-100">
-                      <small>Gratuity (%)</small>
-                      <small style={{ fontSize: "8px" }}>minimum 20%</small>
+                      <div className="d-flex align-items-center gap-2">
+                        <small>Gratuity (%)</small>
+                        <small style={{ fontSize: "8px" }}>(min 20%)</small>
+                      </div>
                       <div>
                         <select
                           className="emptyInput"
@@ -1164,16 +1224,12 @@ function ReviewBooking() {
                       </div> */}
                     </div>
                   </div>
-                  <div style={{ fontWeight: "600" }} className="mt-3">
+                  <div style={{ fontWeight: "600" }} className="mt-3 mb-2">
                     Additional Information
                   </div>
                   <div className="psngr-dtls-container gap-2">
                     <div className="pkp-containerz w-100">
                       <small>No of Bags</small>
-
-                      <small style={{ fontSize: "10px" }}>
-                        Maximum - {parseInt(vehicles[0]?.maxBags)}
-                      </small>
 
                       {/* <select
                         className="emptyInput"
@@ -1187,54 +1243,62 @@ function ReviewBooking() {
                           )
                         )}
                       </select> */}
-                      <div className="d-flex mt-3">
-                        <div
-                          style={{
-                            cursor: "pointer",
-                            background: "white",
-                            borderRadius: " 5px 0 0 5px",
-                            width: "35px",
-                            height: "30px",
-                            color: "black",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                          onClick={() => {
-                            noOfBags > 0 && setNoOfBags(parseInt(noOfBags) - 1);
-                          }}
-                        >
-                          -
-                        </div>
-                        <div
-                          className="w-100 text-center"
-                          style={{
-                            border: "1px solid white",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          {noOfBags}
-                        </div>
-                        <div
-                          style={{
-                            cursor: "pointer",
-                            background: "white",
-                            borderRadius: "0 5px 5px 0",
-                            width: "35px",
-                            height: "30px",
-                            color: "black",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                          onClick={() => {
-                            noOfBags < parseInt(vehicles[0]?.maxBags) &&
-                              setNoOfBags(parseInt(noOfBags) + 1);
-                          }}
-                        >
-                          +
+                      <div className="d-flex flex-column">
+                        <small style={{ fontSize: "10px" }} className="mb-1">
+                          Maximum - {parseInt(vehicles[0]?.maxBags)}
+                        </small>
+                        <div className="d-flex">
+                          {" "}
+                          <div
+                            style={{
+                              cursor: "pointer",
+                              background: "white",
+                              borderRadius: " 5px 0 0 5px",
+                              width: "35px",
+                              height: "30px",
+                              color: "black",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            onClick={() => {
+                              noOfBags > 0 &&
+                                setNoOfBags(parseInt(noOfBags) - 1);
+                            }}
+                          >
+                            -
+                          </div>
+                          <div
+                            className="w-100 text-center"
+                            style={{
+                              border: "1px solid white",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: "white",
+                            }}
+                          >
+                            {noOfBags}
+                          </div>
+                          <div
+                            style={{
+                              cursor: "pointer",
+                              background: "white",
+                              borderRadius: "0 5px 5px 0",
+                              width: "35px",
+                              height: "30px",
+                              color: "black",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            onClick={() => {
+                              noOfBags < parseInt(vehicles[0]?.maxBags) &&
+                                setNoOfBags(parseInt(noOfBags) + 1);
+                            }}
+                          >
+                            +
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1243,7 +1307,9 @@ function ReviewBooking() {
 
                       <div className="d-flex   gap-2">
                         <div className="d-flex flex-column justify-content-between w-100">
-                          <small>Checked Bags</small>
+                          <small style={{ fontSize: "10px" }} className="mb-1">
+                            Checked Bags
+                          </small>
 
                           {/* <select
                             className="emptyInput"
@@ -1334,7 +1400,9 @@ function ReviewBooking() {
                           </div> */}
                         </div>
                         <div className="d-flex flex-column justify-content-between w-100">
-                          <small>Carry-on</small>
+                          <small style={{ fontSize: "10px" }} className="mb-1">
+                            Carry-on
+                          </small>
 
                           <select
                             className="emptyInput"
@@ -1408,9 +1476,12 @@ function ReviewBooking() {
                         </div>
                       </div>
                     </div>
-                    <div className="pkp-containerz w-100">
+                    <div
+                      className="pkp-containerz w-100"
+                      style={{ display: "none" }}
+                    >
                       <small>Do you need car seat?</small>
-                      <div className="d-flex gap-2 justify-content-around">
+                      <div className="d-flex gap-2  gap-4">
                         <div>
                           <input
                             type="radio"
@@ -1464,12 +1535,16 @@ function ReviewBooking() {
                     )} */}
 
                     <div className="pkp-containerz">
-                      <div>+ Add Seat</div>
+                      <small>+ Add Seat</small>
                       <div className="d-flex align-items-center">
                         <select
                           className="w-100"
                           onChange={handleSelectChange}
-                          style={{ padding: "3px 10px" }}
+                          style={{
+                            padding: "3px 10px",
+                            border: "0",
+                            borderRadius: "5px 0 0 5px",
+                          }}
                         >
                           <option>Infant (ages 0-1)</option>
                           <option>Toddler Seat (ages 1-3)</option>
@@ -1486,12 +1561,14 @@ function ReviewBooking() {
                             alignItems: "center",
                             justifyContent: "center",
                             cursor: "pointer",
+                            borderRadius: "0 5px 5px 0",
                           }}
                           onClick={handleAddSeat}
                         >
                           +
                         </div>
                       </div>
+
                       <ul>
                         {seats.map((seat, index) => (
                           <li key={index} className="d-flex align-items-center">
@@ -1551,9 +1628,9 @@ function ReviewBooking() {
                     </div>
 
                     <div className="pkp-containerz ">
-                      <div>
+                      <small>
                         <FaWheelchair /> Wheelchair passenger
-                      </div>
+                      </small>
                       <div>
                         <Switch
                           onChange={(value) => {
@@ -1564,15 +1641,14 @@ function ReviewBooking() {
                         />
                       </div>
                     </div>
-
-                    <div className="pkp-containerz w-100">
-                      <small>Flight Information (Optional)</small>
-                      <input
-                        type="text"
-                        className="emptyInput"
-                        onChange={(e) => setFlightInformation(e.target.value)}
-                      />
-                    </div>
+                  </div>
+                  <div className="pkp-containerz w-100 mt-2">
+                    <small>Flight Information (Optional)</small>
+                    <input
+                      type="text"
+                      className="emptyInput"
+                      onChange={(e) => setFlightInformation(e.target.value)}
+                    />
                   </div>
 
                   <div className="pkp-containerz mt-2">
@@ -1589,8 +1665,8 @@ function ReviewBooking() {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-4 p-3">
-              <div>
+            <div className="col-12 col-md-4 p-13">
+              <div style={{ display: "none" }}>
                 {locations.rideType !== "hourly-trip" ? (
                   <div className="container p-0">
                     <div
@@ -1644,7 +1720,17 @@ function ReviewBooking() {
                 ) : null}
               </div>
               {isCalculationDone ? (
-                <div className="review-booking-card p-2">
+                <div
+                  className="review-booking-card p-13"
+                  style={{
+                    border: "1px solid #b5b5b575",
+                    borderRadius: "15px",
+                    position: "sticky",
+                    top: "10px",
+                    border: "1px solid #e5bb73",
+                    boxShadow: "-10px -5px 40px 0 rgba(0, 0, 0, .1)",
+                  }}
+                >
                   <div style={{ fontWeight: "600", fontSize: "20px" }}>
                     Price Details
                   </div>
@@ -1839,7 +1925,7 @@ function ReviewBooking() {
                   }
 
                   <div className="d-flex justify-content-between">
-                    <div style={{ fontSize: "14px", color: "#ffd5a4" }}>
+                    <div style={{ fontSize: "14px", color: "#c59c6c" }}>
                       {tripType === 30 ? (
                         <div>Welcome discount</div>
                       ) : tripType === 20 ? (
@@ -1848,7 +1934,7 @@ function ReviewBooking() {
                         <div>Discount</div>
                       )}
                     </div>
-                    <div style={{ fontSize: "14px", color: "#ffd5a4" }}>
+                    <div style={{ fontSize: "14px", color: "#c59c6c" }}>
                       ${" "}
                       {tripType === 30
                         ? (discountValue = (
@@ -1957,7 +2043,7 @@ function ReviewBooking() {
 
                   <hr />
                   <div className="d-flex justify-content-between">
-                    <div style={{ fontSize: "25px", fontWeight: "600" }}>
+                    <div style={{ fontSize: "20px", fontWeight: "600" }}>
                       Total Fee
                     </div>
                     <div
@@ -1990,10 +2076,11 @@ function ReviewBooking() {
                     </div>
                   </div>
 
-                  <div className="p-2 mt-4 mb-4 bbookdrive">
+                  {/* <div className="mt-3 mb-4 bbookdrive">
                     <Button
                       variant="contained"
                       style={{
+                        display: "none",
                         width: "200px",
                         background: "#e6e6e6",
                         color: "black",
@@ -2005,18 +2092,43 @@ function ReviewBooking() {
                     </Button>
                     <Button
                       variant="contained"
+                      disabled={!isTermsAgreed}
                       style={{
-                        background: "#C59C6C",
+                        background: !isTermsAgreed ? "grey" : "#C59C6C",
+                        color: !isTermsAgreed ? "#bfbfbf" : "white",
                       }}
                       className="w-100"
                       onClick={() => makePaymentAction()}
                     >
                       CONTINUE
                     </Button>
-                  </div>
-                  <div style={{ fontSize: "12px", fontWeight: "200" }}>
-                    By processing I agree Saywa Limo’s User Agreement, Terms of
-                    Service and Privacy Policy
+                  </div> */}
+                  <Checkbox onChange={(value) => agreeTerms(value)}>
+                    <div style={{ fontSize: "12px", fontWeight: "400" }}>
+                      I have read and agree to the{" "}
+                      <a
+                        style={{ fontSize: "12px" }}
+                        href="https://saywalimo.com/terms-of-service"
+                        target="_blank"
+                        rel="nofollow"
+                      >
+                        Terms &amp; Policies
+                      </a>
+                    </div>
+                  </Checkbox>
+                  <div className="mt-3">
+                    <Button
+                      variant="contained"
+                      disabled={!isTermsAgreed}
+                      style={{
+                        background: !isTermsAgreed ? "grey" : "#C59C6C",
+                        color: !isTermsAgreed ? "#bfbfbf" : "white",
+                      }}
+                      className="w-100"
+                      onClick={() => makePaymentAction()}
+                    >
+                      CONTINUE
+                    </Button>
                   </div>
                 </div>
               ) : (

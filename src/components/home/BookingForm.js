@@ -366,7 +366,7 @@ function BookingForm() {
           <Autocomplete>
             <input
               type="text"
-              className="emptyInput"
+              className="emptyInputOne"
               value={fromLocation}
               ref={originRef}
               onBlur={() => {
@@ -406,7 +406,7 @@ function BookingForm() {
           <Autocomplete onPlaceChanged={() => calculateRoute()}>
             <input
               type="text"
-              className="emptyInput inpddd"
+              className="emptyInputOne inpddd"
               value={dropLocation}
               ref={destinationRef}
               onBlur={() => {
@@ -653,7 +653,7 @@ function BookingForm() {
                     <Autocomplete>
                       <input
                         type="text"
-                        className="emptyInput"
+                        className="emptyInputOne"
                         ref={hourlyOriginRef}
                         value={fromLocation}
                         onBlur={(e) => {
@@ -680,7 +680,7 @@ function BookingForm() {
                 <small>For Hours</small>
                 <select
                   value={selectedTime}
-                  className="emptyInput"
+                  className="emptyInputOne"
                   ref={hourlyRef}
                   onChange={(e) => setSelectedTime(e.target.value)}
                 >

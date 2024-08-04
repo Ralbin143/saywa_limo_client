@@ -5,17 +5,11 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import { AiFillCar } from "react-icons/ai";
-import { MdPreview } from "react-icons/md";
-import { IoMdDocument } from "react-icons/io";
 import ReviewBooking from "./ReviewBooking";
 import Vehicles from "./Vehicles";
 import BookRide from "./BookRide";
 import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
-// import { activeStepx } from "../store/StepperSlice";
 import { ToastContainer } from "react-toastify";
-import { propTypes } from "react-bootstrap/esm/Image";
 import { useDispatch } from "react-redux";
 import { activeStepx } from "../store/StepperSlice";
 
@@ -23,28 +17,23 @@ const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   backgroundColor:
     theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
   zIndex: 1,
-  color: "#000",
-  width: 50,
-  height: 50,
+  color: "#fff",
+  width: 25,
+  height: 25,
   display: "flex",
   borderRadius: "50%",
   justifyContent: "center",
   alignItems: "center",
   ...(ownerState.active && {
     color: "#fff",
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(0,0,0) 0%, rgb(0,0,0) 50%, rgb(0,0,0) 100%)",
-    boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
+    background: "#c59c6c",
   }),
   ...(ownerState.completed && {
     color: "#fff",
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(0,0,0) 0%, rgb(0,0,0) 50%, rgb(0,0,0) 100%)",
+    backgroundColor: "#c59c6c",
   }),
   ...(ownerState.end && {
-    color: "#fff",
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(255,0,0) 0%, rgb(0,255,0) 50%, rgb(0,0,255) 100%)",
+    color: "#9b999a",
   }),
 }));
 
@@ -52,9 +41,9 @@ function ColorlibStepIcon(props) {
   const { active, completed, end, className } = props;
 
   const icons = {
-    1: <AiFillCar style={{ fontSize: "25px" }} />,
-    2: <MdPreview style={{ fontSize: "25px" }} />,
-    3: <IoMdDocument style={{ fontSize: "25px" }} />,
+    1: active ? 1 : completed ? "✓" : "",
+    2: active ? 2 : completed ? "✓" : "",
+    3: active ? 3 : completed ? "✓" : "",
   };
 
   return (
@@ -85,7 +74,7 @@ ColorlibStepIcon.propTypes = {
   icon: PropTypes.node,
 };
 
-const steps = ["CAR CLASS", "Preview", "Agreement"];
+const steps = ["Car Classes", "Preview", "Agreement"];
 
 export default function Reservation() {
   const { activeStep } = useSelector((state) => state?.activeStep);
@@ -111,12 +100,13 @@ export default function Reservation() {
             return (
               <Step key={label} {...stepProps}>
                 <StepLabel
-                  className="d-flex flex-column gap-3"
+                  // className="d-flex flex-column gap-3"
                   {...labelProps}
                   StepIconComponent={ColorlibStepIcon}
                   // onClick={() => changeTab(label)}
                 >
-                  {label}
+                  {/* {StepperTitle(activeStep)} */}
+                  <strong> {label}</strong>
                 </StepLabel>
               </Step>
             );

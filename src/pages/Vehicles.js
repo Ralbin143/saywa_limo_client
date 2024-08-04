@@ -640,7 +640,15 @@ function Vehicles() {
 
   return (
     <div className="container mb-2">
-      <div className="trip-container ">
+      <div
+        className="trip-container "
+        style={{
+          color: "white",
+          background: "linear-gradient(90deg, #493d2f, #b69876)",
+          padding: "10px",
+          borderRadius: "10px",
+        }}
+      >
         <div className="mt-2" style={{ fontSize: "20px", fontWeight: "bold" }}>
           {locations?.source}
           {locations.rideType !== "hourly-trip" ? (
@@ -652,7 +660,7 @@ function Vehicles() {
           )}
         </div>
         <div className="d-flex gap-2 mb-3 align-items-center w-100">
-          <div className="bg-warning p-1">{locations?.pickupDate}</div>
+          <div>{locations?.pickupDate}</div>
           {locations.rideType !== "hourly-trip" ? (
             <>
               <small>
@@ -668,6 +676,7 @@ function Vehicles() {
           )}
         </div>
       </div>
+      <div className="p-2" />
       {locations.rideType !== "hourly-trip" ? (
         <div className="vehStopContainer">
           <div className="container p-0">

@@ -291,7 +291,9 @@ function BookRide() {
       voucherCode: locations?.voucherCode,
       returnDate: locations?.returnDate,
       returnTime: locations?.returnTime,
-      wheelChair: locations?.wheelChair,
+      wheelChair: locations?.needWheelChair,
+      carryOnBagsCount: locations?.carryOnBagsCount,
+      checkedBagCount: locations?.checkedBagCount,
     };
     dispatch(newOrder(data));
     // sessionStorage.removeItem("locationData");
@@ -308,7 +310,10 @@ function BookRide() {
   }, [isSuccess]);
 
   return (
-    <div className="container p-5">
+    <div
+      className="container p-4"
+      style={{ background: "#eff3e7", borderRadius: "10px" }}
+    >
       <ToastContainer
         position="top-center"
         autoClose={5000}

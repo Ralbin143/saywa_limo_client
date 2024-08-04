@@ -45,9 +45,18 @@
 
 .emptyInput {
   width: 100%;
-  padding: 10px;
-  background-color: inherit;
+  padding: 5px 10px;
+  background-color: white;
   border: inherit;
+  border-radius: 5px;
+  color: black;
+}
+.emptyInputOne {
+  width: 100%;
+  padding: 5px 10px;
+  border: inherit;
+  border-radius: 5px;
+  background-color: #1e1e1e !important;
   color: white;
 }
 .emptyInputDate {
@@ -56,12 +65,12 @@
   color: white !important;
 }
 
-.emptyInput::placeholder {
+.emptyInputOne::placeholder {
   color: darkgrey;
   /* Set the desired color */
 }
 
-.emptyInput:focus {
+.emptyInputOne:focus {
   outline: none;
 }
 .custom-time-picker {

@@ -1,12 +1,12 @@
 .review-booking-card {
-  background-color: black;
-  color: white;
-  margin: 20px 0;
+  background-color: white;
+  color: black;
+  /* margin: 20px 0; */
 }
 
 .psngr-dtls-container {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(2, 1fr);
   /* justify-content: space-between; */
 }
 
@@ -21,12 +21,14 @@
 }
 
 .pkp-containerz {
-  background-color: #1e1e1e;
+  background-color: #eeeeee;
   padding: 10px;
   border-radius: 5px;
-  color: #f0f2f7;
+  /* border: 1px solid #b5b5b575; */
+  color: black;
   display: flex;
-  justify-content: space-between;
+  gap: 5px;
+  /* justify-content: space-between; */
   flex-direction: column;
 }
 
@@ -42,4 +44,7 @@
   .psngr-dtls-container {
     grid-template-columns: auto;
   }
+}
+.p-13 {
+  padding: 13px;
 }
