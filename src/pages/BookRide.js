@@ -291,6 +291,7 @@ function BookRide() {
       voucherCode: locations?.voucherCode,
       returnDate: locations?.returnDate,
       returnTime: locations?.returnTime,
+      wheelChair: locations?.wheelChair,
     };
     dispatch(newOrder(data));
     // sessionStorage.removeItem("locationData");
